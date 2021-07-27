@@ -1,0 +1,243 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.19041}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9\tab\tab\tab Code Lab 1 - Week 5 - ASCII Level Loader Notes\par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab lil reminders\par
+
+\pard\sa200\sl276\slmult1\qr\i Singleton\i0 : allows you to have object go into another scene w/o being destroyed\line\i to persist\i0 : saving your data\line -functions depend on variables\line\i constants\i0 : value cannot be changed\line\i char\i0 : characters \line\i arrays\i0 : store multiple objs in single variable\line\i null\i0 : does not refer to any object \par
+
+\pard\sa200\sl276\slmult1\par
+Game Manager - has a Singleton\par
+PlayerControl - has the Player script\par
+> Create a new folder called LEVELS \par
+\tab -open up a text program. any text program will do\par
+\tab -input the letter 'p' and then you're going to save it into your Levels folder\par
+\tab -name it Level1.[thefileformat]\par
+\tab -alternatively you can use JetBrains \par
+>Make a new C# script called ASCIILevelLoader\par
+\tab -ASCII stands for American Standard Code for Information Interchange \par
+\tab -ASCII is code for letters on your keyboard\par
+>In your ASCIILevelLoader script, you are put a reference to GameObject.\par
+\tab\{\line\tab\tab public GameObject player;  \par
+
+\pard\li5040\sa200\sl276\slmult1\qr // you now have a variable that will allow you to write the codey code in the void Start function. \par
+
+\pard\sa200\sl276\slmult1\tab ^ at this point ASCIILevelLoader is\b  not\b0  a Singleton. But you will attach the same gameObject that GameManger is attached to, so it will persist between scenes.\par
+>Now make a file path so that your Unity can read in the .txt document and implement it. In order to do that, you have to make a variable for holding that. \par
+\tab\tab public string file_name; //bc it's TEXT/words you use string \par
+\tab\tab string file_path; << also making a variable \par
+\tab -Let's make a new FUNCTION for the ASCII Text File \par
+\tab\tab void LoadLevel()\par
+\tab\tab\{\par
+\tab\tab\}\par
+\tab -And make sure to call this function you have now from void Start()\par
+\tab\tab void Start();\line\tab\tab\{\line\tab\tab\tab LoadLevel(); //this calls the function void LoadLevel()\line\tab\tab\}\par
+\tab -Now in void LoadLevel() you will make a string\par
+\tab\tab void LoadLevel()\line\tab\tab\{\line\tab\tab\tab string current_file_path = Application.dataPath +\line\tab\tab\tab "/Levels/" + \line\tab\tab\tab file_name;\line\tab\tab\par
+
+\pard\sa200\sl276\slmult1\qr //gets you the path to ur Unity project\par
+
+\pard\sa200\sl276\slmult1\tab\tab\tab string fileText = File.ReadAllText();\par
+\tab\tab\tab if  (fileText.Contains("p"))\par
+
+\pard\sa200\sl276\slmult1\qr //Contains allows you to \line read what's in that string/\line (ur looking for the letter "p")  \par
+
+\pard\sa200\sl276\slmult1\tab -Make sure that you tell the script to read from the string current_file_path, which \tab holds the Level1.txt file.\par
+\tab\tab\tab string fileText = File.ReadAlText(current_file_path); \par
+\tab -Now work on your \i if \i0 statement. If it contains a "p," you are going to create an object \tab in your scene, based on what's in that file. \par
+\tab\tab\tab if  (fileText.Contains("p"))\line\tab\tab\tab\{\line\tab\tab\tab\tab Instantiate<GameObject>(player);\line\tab\tab\tab\}\par
+
+\pard\sa200\sl276\slmult1\qr //Instantiate is used to\line create new objects at play\par
+
+\pard\sa200\sl276\slmult1 >Attach your ASCIILevelLoader script onto your GameManager. \par
+\tab -If you run into that annoying UNAUTHORIZED ACCESS! thing then u have to give ur \tab computer permissions. \line\tab -Make sure you attach the Player prefab and File_name onto the Inspector too!\par
+*You are determining what is in your scene by what is in your .txt file.*\par
+>Let's say you want to create a wall. \par
+\tab -Add another prefab in the class section of your ASCIILevelLoader script. \line\line\tab\tab public GameObject wall; \par
+\tab -In your Level1.txt, p = player and now w = wall. \par
+\tab -Instead of using Contains for your if-statement, you want to loop through every\line\tab letter you have, individually. So just above your if-statement, build a for loop.\par
+
+\pard\sa200\sl276\slmult1\qr REMINDER: for (initialization; condition; increment-decrement)\{\}\line initialization = initializes code. condition = continues to run the loop\line as long as it is true. in-de = increments i by 1\par
+
+\pard\sa200\sl276\slmult1\tab\tab for (int i = 0; i < fileText.Length; i++)\line\tab\tab\{\line\tab\tab\tab char c = fileText.\line\tab\tab\}\par
+
+\pard\sa200\sl276\slmult1\qr //string.Length < gets the # of chars in current string \par
+
+\pard\sa200\sl276\slmult1\tab -But maybe we build each individual character for your string by adding char array. \line\tab Include\tab above your for loop.\par
+\tab\tab char [] characters = fileText.ToCharArray(); \par
+
+\pard\sa200\sl276\slmult1\qr //each char will now\line be in its own spot \par
+
+\pard\sa200\sl276\slmult1\tab -Now our for loop will look like:\par
+\tab\tab for (int i = 0; i < characters.Length; i++)\line\tab\tab\{\line\tab\tab\tab char c = characters[i];\par
+\tab\tab\tab if ( c  ==  'p')\line\tab\tab\tab\{\line\tab\tab\tab\tab Instantiate<GameObject>(player);\line\tab\tab\tab\} else if (c  ==  'w')\line\tab\tab\tab\{\line\tab\tab\tab\tab Instantiate<GameObject>(wall);\line\tab\tab\tab\}\line\tab\tab\}\par
+
+\pard\sa200\sl276\slmult1\qr REMIDNER: char arrays work like slots. \line [0], [1]\par
+
+\pard\sa200\sl276\slmult1\tab\tab ^In layman terms: if the .txt file comes across the letter 'p,' it will Instantiate \line\tab\tab the player. Otherwise, if it comes across the letter 'w,' it will Instantiate wall\line\tab\line\tab -Now that you have all that, you don't need the other if-statement where Contains\line\tab is because you're working with char arrays instead. BEGONE\line\line\tab\tab\strike if  (fileText.Contains("p"))\line\strike0\tab\tab\tab\strike\{\line\strike0\tab\tab\tab\tab\strike Instantiate<GameObject>(player);\line\strike0\tab\tab\tab\strike\}\par
+\strike0 >On your inspector, assign the wall prefab onto the Script. VOILA!!! Ps and Ws \par
+>bUT HOLD ON!!! If you try to write on your Level1.txt something a lil' like:\line\line\tab\tab pwwwww\line\line\tab -Why is it that even though you have multiple walls you only see ONE wall on play?\line\tab Well good news but you have to deal with that too... Go back to your Instantiate code\line\tab\line\tab\{\line\tab\tab char c = characters[i];\par
+\tab\tab GameObject newObj; //THIS IS NEW\par
+\tab\tab if (c  ==  'p')\line\tab\tab\{\line\tab\tab\tab newObj = Instantiate<GameObject>(player); \line\tab\tab\}  else if (c  ==  'w')\line\tab\tab\{\line\tab\tab\tab newObj = Instantiate<GameObject>(wall); \line\tab\tab\}\par
+\tab\}\par
+\tab\tab ^Now we added a new variable called newObj, which will hold whatever \line\tab\tab prefab you just Instantiated. \par
+\tab -Now after all that, you also are gonna add after the Instantiate stuff: \line\line\tab\tab newObj.transform.position = new Vector3(i, 0, 0);\line\tab\tab\}\line\tab\}\par
+\tab\tab ^The position of the x-axis is based on its position in the .txt file. \par
+\tab -But make sure to also check to see if newObj is set to something?? So...\par
+\tab\tab if(newObj  !=  null)\{\line\tab\tab newObj.transform.position = new Vector3(i, 0, 0); \line\tab\tab\}\par
+\tab\tab ^So if it's \b NOT \b0 null, then give it its position. \par
+\tab\tab GameObject newObj = null; \par
+\tab\tab ^Add = null?\par
+>Now you have your cool WALLS in the scene. \par
+>Add some lil' dashes into your .txt file as well. -  =  [space]. LET THERE BE SPACE!!!! But at this point anything that's NOT a 'w' or 'p' will be a space in the game scene. \par
+>Let's say that you wanted to add TWO players to your scene. But because the Player script is a Singleton, you won't be able to do that! You can only have one player at a time bc of the way you wrote the code. \par
+>Say you want to have your walls spaced out and lined vertically. Begin by refactoring all mentions of fileText on your code... into lineText. \par
+
+\pard\sa200\sl276\slmult1\qr REMINDER: Refactor is an easy\line way of changing something in\line your text but all at once so\line you don't have to look through \line the script yourself and change it\par
+
+\pard\sa200\sl276\slmult1\tab\tab string \strike fileText \strike0 lineText=  File.ReadAllText(current_file_path); \par
+\tab\tab ^begone thot fileText. We're using lineText now. \par
+\tab -Instead of reading all the contents of the file at once as well, we're going to do \tab something different... new line of code above.\par
+\tab\tab string[] fileLines = File.ReadAllLines(current_file_path); \par
+
+\pard\sa200\sl276\slmult1\qr //ReadAllText is a string\line ReadAllLines is a string array\par
+
+\pard\sa200\sl276\slmult1\tab -Now you make a for loop to go through all your LINES now, not TEXT.\par
+\tab\tab for (int y = 0; y < fileLines.Length; y++) \{\par
+\tab\tab THE REST OF THE CODE BLAH BLAH BLAH......\par
+
+\pard\li1440\sa200\sl276\slmult1\}\par
+
+\pard\sa200\sl276\slmult1\qr //you're using \i y\i0  bc vertical.\line  makes sense\par
+
+\pard\sa200\sl276\slmult1\tab\tab ^This for loop is going through all the y's. \line\line\tab -So you have to change the other stuff too now...\par
+\tab\tab string lineText = \strike File.ReadAllLines(current_file_path)\strike0  fileLines[y];\par
+\tab -You also have to make changes to the transform.position\line\tab\tab\line\tab\tab newObj.transform.position = new Vector3(i,  \strike 0\strike0   y,  0); \par
+\tab -But at this point it's like. wait. doesn't i represent the x-axis? So may as well refactor \tab the i to x. So NOW... \par
+\tab\tab  for (int y = 0; y < fileLines.Length; y++)\line\tab\tab\}\line\tab\tab\tab\line\tab\tab\tab string lineText = fileLines[y];\line\line\tab\tab\tab char[] characters = lineText.ToCharArray();\par
+\tab\tab\tab for (int x = 0; x < characterse.Length; x++)\line\tab\tab\tab\{\line\tab\tab\tab\tab char c = characters[x];\par
+\tab\tab\tab\tab GameObject newObj = null;\par
+\tab\tab ETC... ETC...\par
+\tab\tab > y is the height. x is the left-to-right. Let's not think about x-axis rn lol.\par
+\par
+>Keep in mind that the .txt document will start off in the 0,0 axis. If you wanna make it look nicer you can just make a couple handy variables:\par
+\tab\tab\{\line\tab\tab\tab public float xOffset;\line\tab\tab\tab public float yOffset; \par
+
+\pard\sa200\sl276\slmult1\qr //basically this shifts over things gg ez \par
+
+\pard\sa200\sl276\slmult1 >Go back to your transform position code to include the new variables\par
+\tab\tab if (newObj != null)\line\tab\tab\{\line\tab\tab\tab newObj.transform.position = \line\tab\tab\tab\tab new Vector3(x + xOffset, y + yOffset, 0); \line\tab\line\tab -Now in your Inspector you can ~customize~ omg and shift wherever u want the walls\par
+>Let's say you made a really COOL COOL LEVEL on your .txt file. Something like this: \line\line\tab\tab wwwwwwwwwwwwww\line\tab\tab w\tab\tab\tab w\line\tab\tab w\tab\tab p\tab w\line\tab\tab w\tab\tab\tab w\line\tab\tab wwww-----wwwwwwww\par
+\tab -You think the gap would be on the bottom... yet when you run it, it's on the top!?\par
+\tab -What gives? It's because in Unity, when you start adding to your y-axis, it goes up up \tab up and away... so as you're going down the .txt file, the numbers are getting bigger. \line\tab inVeRSiON (u wouldn't have to do this in GameMaker lol) - In your code, in transform \tab position add this for the y-axis:\par
+\tab\tab newObj.transform.position = \line\tab\tab\tab new Vector3(x + xOffset, -y + yOffset, 0);\line\tab\tab\}\par
+>Yet the walls in the scene still look much more like a rectangle than the square that you created in your .txt file? There's more horizontal space to the letters in the .txt file than there is vertical space... but that's for another day.\par
+>Let's review the code. \par
+\tab\tab void LoadLevel()\line\tab\tab\}\line\tab\tab\tab string current_file_path = \line\tab\tab\tab\tab Application.dataPath +\line\tab\tab\tab "/Levels/" +\line\tab\tab\tab file_name;\line\tab\line\tab 1. We build a path to the level file.\line\line\tab\tab string[] fileLines = File.ReadAllLines(current_file_path); \line\line\tab 2. Instead of reading it all in one big chunk of string, we read each line as an \tab individual element of an array.\par
+\tab\tab for (int y = 0; y < filesLines.Length; y++)\line\tab\tab\{\par
+\tab\tab\tab string lineText = fileLines[y];\par
+\tab 3. Within that for loop, we grab each line in that array of lines. \line\line\tab\tab\tab char[] characters = lineText.ToCharArray();\par
+\tab 4. Then we take that line and convert it to an array of chars. So instead of it being read\line\tab as a line, it's being read individually letter by letter on the .txt file. \par
+\tab\tab for (int x = 0; x < characters.Length; x++)\line\tab\line\tab 5. Then we loop through that by going through all the characters in that line. \line\line\tab\tab char c = characters[x];\line\line\tab 6. Grab each character...\line\line\tab\tab GameObject newObj = null; \line\line\tab 6. And then make a holder in case we need to create something. \line\line\tab\tab if (c  ==  'p')\line\tab\tab\{\line\tab\tab\tab newObj = Instantiate<GameObject>(player); \line\tab\tab\}\par
+\tab 7. If that character is a 'p,' we make a new object with the Instantiate code. p = player\line\line\tab\tab else if ( c  ==  'w')\line\tab\tab\{\par
+\tab\tab\tab newObj = Instantiate<GameObject>(wall);\line\tab\tab\}\par
+\tab 8. If the character is a 'w,' we Instantiate a wall! \par
+\tab\tab if (newObj != null)  \line\tab\tab\{\line\tab\tab\tab newObj.transform.position = \line\tab\tab\tab\tab new Vector3(x + xOffset, -y + yOffset, 0); \line\tab\tab\}\line\tab\line\tab 9. Did we create a new object? If so, position that new object on the x, in accordance \tab to the array code, which is derived from the .txt file. Same thing with the y-position.\par
+>But who cares about JUST having a player and a buncha walls???? We can add more to that...\par
+>NEW CHALLENGER: INCOMING ADDITIONAL OBSTACLES\line >Let's say this becomes your new and improved .txtf file...\par
+\tab wwwwwwwwwwww\line\tab w----------------------w\line\tab w--------------p-------w\line\tab w----------------------w\line\tab www---------------ww\line\tab www-------*-------ww\line\tab w----------------------w\line\tab w----------------------w\line\tab wwwwwwwwwwww\par
+
+\pard\sa200\sl276\slmult1\qr //wow! Looks so cool. Remember that\line the dashes and [space] is the read\line as the same thing \par
+
+\pard\sa200\sl276\slmult1\tab -Let's add a little dodgey dodge to the scene - an \i asterisk. \i0 SPooky. \par
+\tab -Make a new Sprite for your brand new obstacle dodgey thing. Create a new Prefab\line\tab by dragging a sprite you add in the Sprites folder to your Hierarchy. Remame it to \line\tab Obstacle. Let's make something that reacts when you hit it. \par
+\tab -New script time! Called ObstacleScript. Ingenious. Add it to the Obstacle inspector. \line\tab You're also going to want to add a collider to this. BoxCollider2d (on components). \par
+\tab -Drag your shiny new Obstacle Object in the Hierarchy to your Prefabs folder. \par
+>Time to include code for that new Obstacle. \par
+\tab\tab public GameObject obstacle; \par
+\tab -But at this point, having if and else if won't suffice. Instead of a bunch of if-\tab statements, you're going to want to add a switch!\par
+\tab\tab switch (c)\line\tab\tab\{\line\tab\tab\tab case 'p':\line\tab\tab\tab\tab newObj = Instantiate<GameObject>(player);\line\tab\tab\tab\tab break:\line\tab\tab\tab case 'w':\line\tab\tab\tab\tab break:\line\tab\tab\tab\tab newObj = Instantiate<GameObject>(wall);\line\tab\tab\tab case '*':\line\tab\tab\tab\tab break:\line\tab\tab\tab\tab newObj = Instantiate<GameObject>(obstacle); \line\tab\tab\tab\tab break; \line\tab\tab\tab default:\line\tab\tab\tab\tab newObj = null; \line\tab\tab\tab\tab break;\line\tab\tab\}\par
+
+\pard\sa200\sl276\slmult1\qr REMINDER: switch statements are like the\line if-else statements but will be more \line efficient against a set of expected cases\par
+
+\pard\sa200\sl276\slmult1\tab\tab ^With this you don't need the if + else-if crap in your code. SO CLEAN \par
+
+\pard\sa200\sl276\slmult1\qr REMINDER: case + default + break\line are part of the switch code\par
+
+\pard\sa200\sl276\slmult1\tab\tab ^The case statement takes care of the null stuff too, so you can omit this:\line\line\tab\tab\tab GameObject newObj \strike = null\strike0 ; \par
+\tab -Now that you've done all that, you can remove the Obstacle object on your scene. \line\tab But you have put it in the Inspector in the slot!!!\par
+>Let's add another new thing in your .txt file where if you hit something, you win (prize?)\line\line\tab -The character '&' will be represented as the goal. \line\tab -Easy enough! Do the same thing you did with the '*' character. \line\tab -Create a new Prefab by creating a Sprite and dragging it into your scene. Name it.\line\tab -Create a Prize script. PrizeScript. GoalScript - whatever. Add it to the Inspector. \line\tab -Drag shiny new Sprite into your Prefabs folder. \line\tab -In the script with the switch statement, go ahead and add:\line\line\tab\tab\tab case '&':\line\tab\tab\tab\tab break:\line\tab\tab\tab\tab newObj = Instantiate<GameObject>(goal);\line\tab\tab\tab\tab break;\par
+\tab -Don't forget to create a variable for the Goal.\par
+\tab\tab public GameObject goal; \par
+>Let's start making our objects now DO THINGS. \par
+\tab -If you hit the obstacle, it'll bring you back to the start position (not COldplay)\line\tab -Your start position is wherever your 'p' in the .txt file is located. \line\tab -You can add more to your p-case statement. \par
+>Make a new Vector2 along with all the other variables. \par
+\tab\tab Vector2 startPos; \par
+\tab -In addition to creating a new Player when you see the 'p,' you will also...\line\tab\line\tab\tab case 'p':\line\tab\tab\tab newObj = Instantiate<GameObject>(player);\line\tab\tab\tab startPos = new Vector2(\line\tab\tab\tab\tab x + xOffset, -y + yOffset);\line\tab\tab\tab break;\par
+
+\pard\sa200\sl276\slmult1\qr //When you load the level,\line you save the start position.\par
+
+\pard\sa200\sl276\slmult1 >Now you're going to want to create a public function \par
+
+\pard\li1440\sa200\sl276\slmult1 public void ResetPlayer()\line\{\tab\line\}\par
+^You need to make a reference to the player, so you have to add yet a new\line variable\line\line public GameObject currentPlayer;\par
+On the switch code:\par
+\{\line\tab case 'p':\line\tab\tab newObj = Instantiate<GameObject>(player);\line\tab\tab currentPlayer = newObj;\par
+
+\pard\sa200\sl276\slmult1\tab -Going back to your function\line\line\tab\tab public void ResetPlayer()\line\tab\tab\{\line\tab\tab\tab currentPlayer.transform.position = (Vector3)startPos;\line\tab\tab\}\par
+
+\pard\sa200\sl276\slmult1\qr //this will return the player to the startPos\line whenever you hit the Obstacle\par
+
+\pard\sa200\sl276\slmult1 >But you also need to implement the changes on the Obstacle script to call that reset function.\par
+\tab\tab void Update()\line\tab\tab\{\line\tab\tab\}\line\tab\tab\line\tab\tab OnCollisionEnter2D(Collision2D other)\line\tab\tab\{\line\tab\tab\tab if(other.gameObject.name.Contains("Player"))\line\tab\tab\tab\{\line\tab\tab\tab\fs22 GameManager.instance.GetComponent<ASCIILevelLoader>().ResetPlayer;\fs22\line\tab\tab\tab\}\line\tab\tab\}\par
+
+\pard\sa200\sl276\slmult1\qr //this function tells you that if the obstacle gets hit\line you can call the component "ResetPlayer" in the ASCII LL\line that we reference through the GameManager Singleton\par
+
+\pard\sa200\sl276\slmult1 >You can make a new Unity scene AND a new Level. So we were working with Level1.txt now make a new one. With your new .txt level you can switch up the obstacles and whatnot.\par
+\tab -Go to File > Build Settings > Scenes/Level0 + Scenes/Level1\par
+>Let's add a component in the Inspector of our Goal Prefab. \par
+\tab -CircleCollider2D. \line\tab -Make it a Trigger. \par
+>You have to make a script for this as well. GoalScript. \par
+\tab -Put the GoalScript onto the Prefab.\line\tab -Create a new function in the GoalScript. \line\tab\line\tab\tab void OnTriggerEnter2D(Collider2D other)\line\tab\tab\{\line\tab\tab\tab SceneManager.LoadScene("Level1");\line\tab\tab\}\par
+
+\pard\li720\sa200\sl276\slmult1 -But now try playing. When the player hits the Prize, it doesn't load the new Level.\line It's because you have LoadLevel(); only on the Start function of your ASCII Level Loader script. \par
+-Let's add another variable: \par
+\tab public int currentLevel = 0;\line\tab\line -Let's say in the Inspector, instead of Level0.txt... we call it LevelNum.txt. CRAZY\par
+-On the LoadLevel function, instead of file_name... we can replace it.\par
+\tab void LoadLevel()\line\tab\{\line\tab\tab string current_file_path =\line\tab\tab Application.dataPath + \line\tab\tab "/Levels/" +\line\tab\tab fileName.Replace("Num", currentLevel + ""); \par
+
+\pard\li720\sa200\sl276\slmult1\qr //In order for it to get to the next level,\line you added code that everytime you add\line currentLevel by 1, it goes to the new .txt level\par
+
+\pard\li720\sa200\sl276\slmult1 -When you change the current level, you also want to load that level.\line -You want to change the number of the currentLevel.\line -You gotta create a property. Wrap around an intenger, triggers a bunch of stuff.\line -Property: any variable inside a class. \par
+\tab public int CurrentLevel\line\tab\{\line\tab get \{ return currentLevel;\}\line\tab set\line\tab\{\line\tab\tab current Level = value;\line\tab\tab\tab if\line\tab\tab LoadLevel(); \line\tab\}\par
+
+\pard\li720\sa200\sl276\slmult1\qr //set is like start method\line functions are a method \line get is like \par
+
+\pard\li720\sa200\sl276\slmult1 -Now on your Goal Script...\par
+\tab void OnTriggerEnter2D(Collider2D other)\line\tab\{\line\tab\fs22 GameManager.instance.GetComponenet<ASCIILevelLoader>().CurrentLevel++;\line\tab\}\par
+\fs22 >But you have to destroy the previous level!\par
+public GameObject level; \line\par
+void LoadLevel()\line\{\line Destroy(level); \line level = new GameObject("Level");\par
+
+\pard\li720\sa200\sl276\slmult1\qr //u destroy the level\line and create a new one \par
+
+\pard\li1440\sa200\sl276\slmult1 if (newObj != null)\line\{\line\tab if(!newObj.name.Contains("Player"))\line\{\line\tab newObj.transform.parent = level.transform;\line\}\line\tab newObj.\par
+
+\pard\sa200\sl276\slmult1 A note about triggers... you can trigger the On Trigger component more than once. \par
+
+\pard\sa200\sl276\slmult1\qr\par
+
+\pard\sa200\sl276\slmult1\par
+\par
+\par
+
+\pard\sa200\sl276\slmult1\qr\par
+\par
+\par
+\par
+\par
+
+\pard\sa200\sl276\slmult1\par
+\par
+\par
+}
+ 

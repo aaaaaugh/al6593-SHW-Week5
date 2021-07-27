@@ -74,19 +74,7 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("GameOverScene");
             GameObject.Find("Player"); //destroy the player obj
             GameObject.Destroy(GameObject.Find("Player"));
-            gameTime = 10; //RESETS back to 10 secs
-        }
-        
-        //update the text with the score and level
-        /*text.text = "level:" + currentLevel + 
-                    "\nboops: " + score + 
-                    "\nbooped: " + targetScore;*/
-        
-        if (score == targetScore)  //if the current score == the targetScore
-        {
-            currentLevel++; //increase the level number
-            SceneManager.LoadScene(currentLevel); //go to the next level when u hit the prize
-            targetScore += targetScore + targetScore/2; //update target score
+            //gameTime = 10; //RESETS back to 10 secs
         }
     }
     }

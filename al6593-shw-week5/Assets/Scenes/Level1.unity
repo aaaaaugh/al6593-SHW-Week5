@@ -228,6 +228,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6294865890677110799, guid: a3523f498a708014eaee731ff9f48d6a,
         type: 3}
+      propertyPath: fileName
+      value: LevelNum.Txt
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294865890677110799, guid: a3523f498a708014eaee731ff9f48d6a,
+        type: 3}
       propertyPath: obstacle
       value: 
       objectReference: {fileID: 665140706184278290, guid: e191045da31e20144aff31a8e033909e,

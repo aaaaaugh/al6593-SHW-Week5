@@ -10,12 +10,26 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../../al6593-SHW-Week4/al6593-SHW-Week4/codelab1-s21-week4/Assets/Scripts/GameManager.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../al6593-SHW-Week3/codelab1-s21-week3/Assets/Scripts/GameManager.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
       <option value="$PROJECT_DIR$/Assets/Levels/Level0.txt" />
       <option value="$PROJECT_DIR$/Assets/Levels/Level1.txt" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GoalScript.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/ASCIILevelLoader.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/GameOver.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1vX8DREm7TrKgTeBnxSiVirzqvb" />
@@ -60,6 +74,8 @@
       <option name="presentableId" value="Default" />
       <updated>1626696953397</updated>
       <workItem from="1626696964429" duration="4290000" />
+      <workItem from="1627319914067" duration="7870000" />
+      <workItem from="1627411455382" duration="5410000" />
     </task>
     <servers />
   </component>
@@ -78,6 +94,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />

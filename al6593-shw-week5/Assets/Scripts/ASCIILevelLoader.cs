@@ -1,7 +1,8 @@
 ﻿using System.Collections;
-using System.IO;
+using System.IO; //allows for the use of string fileText = File. 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ASCIILevelLoader : MonoBehaviour
 {
@@ -35,7 +36,17 @@ public class ASCIILevelLoader : MonoBehaviour
         set
         {
             currentLevel = value;
-            LoadLevel();
+            Debug.Log("i did th ething");
+            //LoadLevel();
+            if (currentLevel == 2)//u r the one ASKKING
+            { 
+                SceneManager.LoadScene("GameOverScene");
+            } 
+            else //OTHERWISE
+            {
+                LoadLevel();
+            }
+
         }
     }
 
@@ -45,11 +56,11 @@ public class ASCIILevelLoader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        LoadLevel(); //call load level 
+        LoadLevel(); //call load level. when you start you are going to call the function LOAD LEVEL 
     }
 
     //function that creates the level based on the ASCII Text File
-    void LoadLevel()
+    void LoadLevel() 
     {
         Destroy(level); //destroy the current level
         level = new GameObject("Level"); //create a new level gameObject
